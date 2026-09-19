@@ -14,8 +14,8 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const VERSION = '1.0.0';
-const REPO = 'https://github.com/fvsonar/github-chinese';
-const RAW = 'https://raw.githubusercontent.com/fvsonar/github-chinese/main';
+const REPO = 'https://github.com/FVsonar/github-chinese';
+const RAW = 'https://raw.githubusercontent.com/FVsonar/github-chinese/main';
 const ICON = 'https://github.githubassets.com/pinned-octocat.svg';
 
 const upstream = fs.readFileSync(path.join(ROOT, 'src', 'main.user.js'), 'utf8');
@@ -36,7 +36,7 @@ function header({ requireLocals }) {
     '// @version      ' + VERSION,
     '// @description  中文化 GitHub 界面：内置完整词库，覆盖新版 React 顶栏、仓库导航、议题/拉取请求/发布等页面',
     '// @description:en  Localize the GitHub web UI into Chinese (zh-CN)',
-    '// @author       fvsonar',
+    '// @author       FVsonar',
     '// @license      GPL-3.0',
     '// @icon         ' + ICON,
     '// @homepageURL  ' + REPO,

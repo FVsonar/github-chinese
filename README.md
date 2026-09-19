@@ -12,7 +12,7 @@
 | 方式 | 链接 | 说明 |
 | --- | --- | --- |
 | GreasyFork | 上架后填写 | 推荐，自动更新 |
-| GitHub Raw | `https://raw.githubusercontent.com/fvsonar/github-chinese/main/main.user.js` | 篡改猴会弹出安装页 |
+| GitHub Raw | `https://raw.githubusercontent.com/FVsonar/github-chinese/main/main.user.js` | 篡改猴会弹出安装页 |
 | 自包含版 | [`dist/github-chinese-selfcontained.user.js`](dist/github-chinese-selfcontained.user.js) | 词库已内联，**不依赖任何 CDN / raw.githubusercontent**，适合网络受限环境 |
 | 离线包 | Releases 页下载 | 双击/拖入浏览器安装 |
 
@@ -56,14 +56,14 @@ node build.mjs
 
 1. 新建仓库（本目录即仓库根），推送到 `main` 分支；
 2. 因为 `main.user.js` 里的 `@require` / `@downloadURL` 指向
-   `https://raw.githubusercontent.com/fvsonar/github-chinese/main/...`，
+   `https://raw.githubusercontent.com/FVsonar/github-chinese/main/...`，
    仓库名/用户名或分支名不同的话，改 `build.mjs` 顶部的 `REPO` / `RAW` 后重新构建；
 3. 打 tag 并上传 `dist/github-chinese-selfcontained.user.js` 作为 Release 附件。
 
 **GreasyFork**
 
 1. 打开 <https://greasyfork.org/zh-CN/scripts/new>，粘贴 `main.user.js` 的内容（**不要**贴自包含版，2 MB 体积大且不利于审核）；
-2. “附加信息 → 源地址” 填 `https://github.com/fvsonar/github-chinese`，即可开启 GitHub 同步自动更新；
+2. “附加信息 → 源地址” 填 `https://github.com/FVsonar/github-chinese`，即可开启 GitHub 同步自动更新；
 3. 由于同时发布了 GitHub 仓库，建议在描述里同时给出两个安装入口。
 
 ## 上游与致谢

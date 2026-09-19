@@ -1,17 +1,17 @@
 // ==UserScript==
 // @name         GitHub汉化脚本
 // @name:en      GitHub Chinese Localization
-// @namespace    https://github.com/fvsonar/github-chinese
+// @namespace    https://github.com/FVsonar/github-chinese
 // @version      1.0.0
 // @description  中文化 GitHub 界面：内置完整词库，覆盖新版 React 顶栏、仓库导航、议题/拉取请求/发布等页面
 // @description:en  Localize the GitHub web UI into Chinese (zh-CN)
-// @author       fvsonar
+// @author       FVsonar
 // @license      GPL-3.0
 // @icon         https://github.githubassets.com/pinned-octocat.svg
-// @homepageURL  https://github.com/fvsonar/github-chinese
-// @supportURL   https://github.com/fvsonar/github-chinese/issues
-// @downloadURL  https://raw.githubusercontent.com/fvsonar/github-chinese/main/main.user.js
-// @updateURL    https://raw.githubusercontent.com/fvsonar/github-chinese/main/main.user.js
+// @homepageURL  https://github.com/FVsonar/github-chinese
+// @supportURL   https://github.com/FVsonar/github-chinese/issues
+// @downloadURL  https://raw.githubusercontent.com/FVsonar/github-chinese/main/main.user.js
+// @updateURL    https://raw.githubusercontent.com/FVsonar/github-chinese/main/main.user.js
 // @match        https://github.com/*
 // @match        https://gist.github.com/*
 // @run-at       document-start

@@ -23,11 +23,13 @@
 标准版通过 `@require` 拉取词库，地址为 GreasyFork 认可的 CDN：
 
 ```
-https://cdn.jsdelivr.net/gh/FVsonar/github-chinese@v1.0.0/locals.js
+https://cdn.jsdelivr.net/gh/FVsonar/github-chinese@2f05f22605f7fb3c51fc1f3082fc8c36cd3ddb15/locals.js
 ```
 
-> `@require` 的域名不是随便填的：GreasyFork 只允许其[认可的 CDN](https://greasyfork.org/en/help/cdns)
-> （`raw.githubusercontent.com` 不在名单内，会被直接拒绝提交）。
+> `@require` 的地址格式很挑：[GreasyFork 认可的 CDN](https://greasyfork.org/en/help/cdns) 里，
+> jsDelivr 的 GitHub 来源**只允许 `gh/<user>/<repo>@<40 位 commit SHA>` 这一种形式**——
+> 用 `@main`、`@v1.0.0` 这类分支/tag 形式会被直接拒收（`raw.githubusercontent.com` 更不在名单内）。
+> 该 SHA 写在 `build.mjs` 的 `LOCALS_REF`，构建时会校验它对应的 commit 里就是当前的 `locals.js`。
 
 如果 CDN 不可达，请改用**自包含版**：词库已经写进脚本本体，断网也能汉化。
 
@@ -76,8 +78,8 @@ node build.mjs
 4. 由于同时发布了 GitHub 仓库，建议在描述里同时给出两个安装入口。
 
 > 注意事项：
-> - `@require` 必须指向 GreasyFork [认可的 CDN](https://greasyfork.org/en/help/cdns)，本仓库用 jsDelivr；
-> - 词库更新时，`build.mjs` 里的 `VERSION` 一起递增并打新 tag，`@require` 会自动变成新 tag 的地址；
+> - `@require` 必须指向 GreasyFork [认可的 CDN](https://greasyfork.org/en/help/cdns)，且 jsDelivr 的 GitHub 来源必须是 commit SHA 形式；
+> - **词库更新时**：改完 `locals.js` 先提交拿到 commit SHA，把 `build.mjs` 的 `LOCALS_REF` 换成它，再 `node build.mjs`、`git commit`、打新 tag；
 > - 不要在 GreasyFork 上放体积接近 2 MB 的自包含版（会被拒或触发人工审核）。
 
 ## 上游与致谢

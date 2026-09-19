@@ -16,13 +16,28 @@ const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const VERSION = '1.0.0';
 const REPO = 'https://github.com/FVsonar/github-chinese';
 const RAW = 'https://raw.githubusercontent.com/FVsonar/github-chinese/main';
-// GreasyFork 只允许 @require 使用其认可的 CDN，raw.githubusercontent.com 不在名单内；
-// 这里固定到与 @version 一致的 tag，保证「脚本版本 <-> 词库版本」可复现。
-const CDN = 'https://cdn.jsdelivr.net/gh/FVsonar/github-chinese';
+// GreasyFork 只允许 @require 使用它认可的 CDN 地址，raw.githubusercontent.com 不在名单内。
+// jsDelivr 的 GitHub 来源被限制为「gh + 40 位 commit SHA」这一种形式（tag/分支都不行）：
+//   ^https?://(cdn|test1|testingcf|fastly|gcore)\.jsdelivr\.net/gh/[^/]+/[^/@]+@[a-f0-9]{40}
+// 所以这里固定到包含本词库的 commit；换词库时同步改这个 SHA。
+const LOCALS_REF = '2f05f22605f7fb3c51fc1f3082fc8c36cd3ddb15';
+const CDN = 'https://cdn.jsdelivr.net/gh/FVsonar/github-chinese@' + LOCALS_REF;
 const ICON = 'https://github.githubassets.com/pinned-octocat.svg';
 
 const upstream = fs.readFileSync(path.join(ROOT, 'src', 'main.user.js'), 'utf8');
 const locals = fs.readFileSync(path.join(ROOT, 'locals.js'), 'utf8');
+
+// 一致性校验：@require 指向的 commit 里必须就是本地这份 locals.js，否则线上会 404/版本不符
+try {
+  const shipped = execFileSync('git', ['show', LOCALS_REF + ':locals.js'], { cwd: ROOT, maxBuffer: 64 * 1024 * 1024 });
+  if (!shipped.equals(Buffer.from(locals, 'utf8'))) {
+    throw new Error('locals.js 与 ' + LOCALS_REF + ' 中的内容不一致，请更新 build.mjs 里的 LOCALS_REF');
+  }
+  console.log('✓ locals.js 与 ' + LOCALS_REF.slice(0, 7) + ' 中的内容一致');
+} catch (error) {
+  if (String(error && error.message).includes('不一致')) throw error;
+  console.warn('! 跳过 LOCALS_REF 一致性校验（git 不可用或该 commit 不存在）：' + String(error && error.message).split('\n')[0]);
+}
 
 const headerMatch = upstream.match(/^\/\/ ==UserScript==[\s\S]*?\/\/ ==\/UserScript==\n/);
 if (!headerMatch) throw new Error('src/main.user.js: 未找到 userscript 头');
@@ -46,7 +61,7 @@ function header({ requireLocals }) {
     '// @supportURL   ' + REPO + '/issues',
     '// @downloadURL  ' + RAW + '/main.user.js',
     '// @updateURL    ' + RAW + '/main.user.js',
-    ...(requireLocals ? ['// @require      ' + CDN + '@v' + VERSION + '/locals.js'] : []),
+    ...(requireLocals ? ['// @require      ' + CDN + '/locals.js'] : []),
     '// @match        https://github.com/*',
     '// @match        https://gist.github.com/*',
     '// @run-at       document-start',

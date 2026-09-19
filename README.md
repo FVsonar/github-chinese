@@ -14,7 +14,7 @@
 | GreasyFork | 上架后填写 | 推荐，自动更新 |
 | GitHub Raw | `https://raw.githubusercontent.com/FVsonar/github-chinese/main/main.user.js` | 篡改猴会弹出安装页 |
 | 自包含版 | [`dist/github-chinese-selfcontained.user.js`](dist/github-chinese-selfcontained.user.js) | 词库已内联，**不依赖任何 CDN / raw.githubusercontent**，适合网络受限环境 |
-| 离线包 | Releases 页下载 | 双击/拖入浏览器安装 |
+| 离线包 | [Releases · v1.0.0](https://github.com/FVsonar/github-chinese/releases/download/v1.0.0/github-chinese-selfcontained.user.js) | 直接下载 .user.js，双击/拖入浏览器安装 |
 
 > 两个版本 **二选一** 即可（`@name` + `@namespace` 相同，先装矮的再装胖的会直接覆盖升级，不会重复）。
 

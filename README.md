@@ -20,8 +20,16 @@
 
 ### 国内网络提示
 
-标准版通过 `@require` 拉取词库（`raw.githubusercontent.com`），首次安装需要能访问该域名。
-如果拉取失败，请改用**自包含版**：词库已经写进脚本本体，断网也能汉化。
+标准版通过 `@require` 拉取词库，地址为 GreasyFork 认可的 CDN：
+
+```
+https://cdn.jsdelivr.net/gh/FVsonar/github-chinese@v1.0.0/locals.js
+```
+
+> `@require` 的域名不是随便填的：GreasyFork 只允许其[认可的 CDN](https://greasyfork.org/en/help/cdns)
+> （`raw.githubusercontent.com` 不在名单内，会被直接拒绝提交）。
+
+如果 CDN 不可达，请改用**自包含版**：词库已经写进脚本本体，断网也能汉化。
 
 ## 功能开关
 
@@ -62,9 +70,15 @@ node build.mjs
 
 **GreasyFork**
 
-1. 打开 <https://greasyfork.org/zh-CN/scripts/new>，粘贴 `main.user.js` 的内容（**不要**贴自包含版，2 MB 体积大且不利于审核）；
-2. “附加信息 → 源地址” 填 `https://github.com/FVsonar/github-chinese`，即可开启 GitHub 同步自动更新；
-3. 由于同时发布了 GitHub 仓库，建议在描述里同时给出两个安装入口。
+1. 先打好与 `@version` 同名的 tag（如 `v1.0.0`）并推送，**因为 `@require` 指向的就是这个 tag**；
+2. 打开 <https://greasyfork.org/zh-CN/scripts/new>，粘贴 `main.user.js` 的内容（**不要**贴自包含版，2 MB 体积大且不利于审核）；
+3. “附加信息 → 源地址” 填 `https://github.com/FVsonar/github-chinese`，即可开启 GitHub 同步自动更新；
+4. 由于同时发布了 GitHub 仓库，建议在描述里同时给出两个安装入口。
+
+> 注意事项：
+> - `@require` 必须指向 GreasyFork [认可的 CDN](https://greasyfork.org/en/help/cdns)，本仓库用 jsDelivr；
+> - 词库更新时，`build.mjs` 里的 `VERSION` 一起递增并打新 tag，`@require` 会自动变成新 tag 的地址；
+> - 不要在 GreasyFork 上放体积接近 2 MB 的自包含版（会被拒或触发人工审核）。
 
 ## 上游与致谢
 

@@ -12,7 +12,7 @@
 // @supportURL   https://github.com/FVsonar/github-chinese/issues
 // @downloadURL  https://raw.githubusercontent.com/FVsonar/github-chinese/main/main.user.js
 // @updateURL    https://raw.githubusercontent.com/FVsonar/github-chinese/main/main.user.js
-// @require      https://raw.githubusercontent.com/FVsonar/github-chinese/main/locals.js
+// @require      https://cdn.jsdelivr.net/gh/FVsonar/github-chinese@v1.0.0/locals.js
 // @match        https://github.com/*
 // @match        https://gist.github.com/*
 // @run-at       document-start

@@ -16,6 +16,9 @@ const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const VERSION = '1.0.0';
 const REPO = 'https://github.com/FVsonar/github-chinese';
 const RAW = 'https://raw.githubusercontent.com/FVsonar/github-chinese/main';
+// GreasyFork 只允许 @require 使用其认可的 CDN，raw.githubusercontent.com 不在名单内；
+// 这里固定到与 @version 一致的 tag，保证「脚本版本 <-> 词库版本」可复现。
+const CDN = 'https://cdn.jsdelivr.net/gh/FVsonar/github-chinese';
 const ICON = 'https://github.githubassets.com/pinned-octocat.svg';
 
 const upstream = fs.readFileSync(path.join(ROOT, 'src', 'main.user.js'), 'utf8');
@@ -43,7 +46,7 @@ function header({ requireLocals }) {
     '// @supportURL   ' + REPO + '/issues',
     '// @downloadURL  ' + RAW + '/main.user.js',
     '// @updateURL    ' + RAW + '/main.user.js',
-    ...(requireLocals ? ['// @require      ' + RAW + '/locals.js'] : []),
+    ...(requireLocals ? ['// @require      ' + CDN + '@v' + VERSION + '/locals.js'] : []),
     '// @match        https://github.com/*',
     '// @match        https://gist.github.com/*',
     '// @run-at       document-start',
